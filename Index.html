@@ -1,0 +1,96 @@
+<script id="task-template" type="text/angular-template">
+  <div class="item" data-taskid="{{task.taskId}}">
+    <div class="close task-delete">
+      <a class="btn btn-danger"
+         ng-click="changeStatus(task.taskId,'closed')"
+         role="button">
+        <span class="glyphicon glyphicon-remove"></span>
+      </a>
+    </div>
+    <h3>{{task.title}}</h3>
+
+    <p>{{task.description}}</p>
+
+    <p>
+      <a class="btn btn-primary task-inprogress"
+         ng-click="changeStatus(task.taskId,'inprogress')"
+         role="button">Начать делать »</a>
+      <a class="btn btn-success task-done"
+         ng-click="changeStatus(task.taskId,'done')"
+         role="button">Завершить »</a>
+    </p>
+  </div>
+</script>
+
+<div ng-app="taskboard" ng-controller="TaskboardCtrl">
+
+  <div class="bs" ng-show="showSplashScreen">
+    <div class="jumbotron">
+      <h1>TODO-лист</h1>
+      <p>
+        <a class="btn btn-primary btn-lg"
+           ng-click="setRandomHash($event)"
+           role="button">Начать работу на случайной доске</a>
+      </p>
+      <p>
+        <h4>
+          или используйте 
+          <a href="#500">
+          тестовую доску #500
+            </a>
+          <br />
+          чтобы проверить работу с сервером<h4>
+      </p>
+    </div>
+  </div>
+
+  <div class="main-board" ng-show="!showSplashScreen">
+    <div class="col-xs-12">
+      
+      <h1>
+        <a class='btn btn-danger' role="button" ng-click='reload()'>выход</a>
+        
+        TODO-лист <span class="name">#{{boardName}}</span></h1>
+      
+      <div class="alert alert-warning" role="alert">
+        вебсокеты отключены по условию задачи - серверное обновление не ведется
+      </div>
+      
+      
+    </div>
+    
+    <div class="col-xs-3">
+      <h2>Делать</h2>
+      <div class="items todo" data-status="todo">
+        <task ng-repeat="task in tasks | filter: {status:'todo'}"></task>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <h2>В работе</h2>
+      <div class="items inprogress" data-status="inprogress">
+        <task ng-repeat="task in tasks | filter: {status:'inprogress'}"></task>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <h2>Готово</h2>
+      <div class="items done" data-status="done">
+        <task ng-repeat="task in tasks | filter: {status:'done'}"></task>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <h2>Новая задача</h2>
+      <div class="item">
+        <form role="form" class="add-task" ng-submit="addTask()">
+          <div class="form-group">
+            <label for="title">Задача</label>
+            <input id="title" type="text" ng-model="title" class="form-control" placeholder="Название" required="required" />
+            <label for="description">Описание</label>
+            <textarea id="description" ng-model="description" class="form-control" rows="3" placeholder="Описание" required="required"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Добавить задачу</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
