@@ -1,0 +1,39 @@
+.bs {
+  padding: 45px 15px 15px;
+}
+.main-board{
+  margin: 10px;
+}
+.jumbotron {
+  margin-top: 100px;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+.items {
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 10px;
+  padding-bottom: 30px;
+}
+.item {
+  position: relative;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+.items.todo .task-done {
+  display: none;
+}
+.items.inprogress .task-inprogress {
+  display: none;
+}
+.items.done .task-done, .items.done .task-inprogress {
+  display: none;
+}
